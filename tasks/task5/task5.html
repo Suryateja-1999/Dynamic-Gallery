@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade Evaluator</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap">
+    <style>
+        /* Root Styling */
+        :root {
+            --background: linear-gradient(135deg, #ddeafc, #b2d4ff);
+            --panel-bg: #ffffff;
+            --primary-color: #004aad;
+            --text-dark: #222;
+            --text-light: #555;
+            --input-bg: #f9f9f9;
+            --border: #ccc;
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            --grade-excellent: #1abc9c;
+            --grade-good: #3498db;
+            --grade-average: #f39c12;
+            --grade-fail: #e74c3c;
+            --radius: 14px;
+            --transition: all 0.3s ease-in-out;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        /* Page Layout */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: var(--background);
+            padding: 40px;
+        }
+
+        .grade-wrapper {
+            display: flex;
+            max-width: 850px;
+            width: 100%;
+            background: var(--panel-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        /* Left Side - Grade Panel */
+        .grade-panel {
+            background: var(--primary-color);
+            color: white;
+            padding: 40px;
+            width: 40%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .grade-box {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--text-light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3rem;
+            font-weight: bold;
+            color: white;
+            margin: 0 auto 15px;
+            transition: var(--transition);
+        }
+
+        .grade-message {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        /* Right Side - Input Panel */
+        .input-panel {
+            width: 60%;
+            padding: 40px;
+        }
+
+        .title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        input {
+            padding: 14px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            font-size: 1rem;
+            background: var(--input-bg);
+            text-align: center;
+            transition: var(--transition);
+            outline: none;
+        }
+
+        input:focus {
+            border-color: var(--primary-color);
+        }
+
+        .calculate-btn {
+            padding: 14px;
+            background: var(--primary-color);
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .calculate-btn:hover {
+            background: #003380;
+        }
+
+        /* Grade Colors */
+        .grade-A { background: var(--grade-excellent); }
+        .grade-B { background: var(--grade-good); }
+        .grade-C { background: var(--grade-average); }
+        .grade-F { background: var(--grade-fail); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .grade-wrapper {
+                flex-direction: column;
+            }
+
+            .grade-panel {
+                width: 100%;
+                padding: 30px;
+            }
+
+            .input-panel {
+                width: 100%;
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="grade-wrapper">
+        <!-- Grade Panel -->
+        <div class="grade-panel">
+            <div id="gradeBox" class="grade-box">?</div>
+            <p id="gradeMessage" class="grade-message">Your Grade</p>
+        </div>
+
+        <!-- Input Panel -->
+        <div class="input-panel">
+            <h2 class="title">Student Grade Evaluator</h2>
+            <p class="subtitle">Enter your score to see your grade</p>
+
+            <div class="input-container">
+                <label for="scoreInput">Your Score (0-100):</label>
+                <input type="number" id="scoreInput" min="0" max="100" placeholder="Enter your score">
+            </div>
+
+            <button class="calculate-btn" onclick="evaluateGrade()">Calculate Grade</button>
+        </div>
+    </div>
+
+    <script>
+        function evaluateGrade() {
+            let score = parseFloat(document.getElementById("scoreInput").value);
+            let grade = "?";
+            let gradeClass = "";
+            let message = "Enter a valid score";
+
+            if (!isNaN(score) && score >= 0 && score <= 100) {
+                if (score >= 85) {
+                    grade = "A";
+                    gradeClass = "grade-A";
+                    message = "Excellent Work!";
+                } else if (score >= 65) {
+                    grade = "B";
+                    gradeClass = "grade-B";
+                    message = "Good Effort!";
+                } else if (score >= 45) {
+                    grade = "C";
+                    gradeClass = "grade-C";
+                    message = "Needs Improvement!";
+                } else {
+                    grade = "F";
+                    gradeClass = "grade-F";
+                    message = "Try Again!";
+                }
+            }
+
+            document.getElementById("gradeBox").textContent = grade;
+            document.getElementById("gradeBox").className = `grade-box ${gradeClass}`;
+            document.getElementById("gradeMessage").textContent = message;
+        }
+
+        window.onload = function() {
+            document.getElementById('scoreInput').focus();
+        };
+    </script>
+
+</body>
+</html>

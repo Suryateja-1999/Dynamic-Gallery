@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Stack Simulator</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600&display=swap">
+    <style>
+        /* Root Variables */
+        :root {
+            --bg-color: #ecf0f3;
+            --card-bg: #ffffff;
+            --primary-color: #004aad;
+            --text-dark: #222;
+            --text-light: #555;
+            --input-bg: #f9f9f9;
+            --border: #ddd;
+            --shadow: 10px 10px 20px #b8b9be, -10px -10px 20px #ffffff;
+            --shadow-inset: inset 5px 5px 10px #b8b9be, inset -5px -5px 10px #ffffff;
+            --radius: 14px;
+            --transition: all 0.3s ease-in-out;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Manrope', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: var(--bg-color);
+            padding: 40px;
+        }
+
+        .stack-wrapper {
+            display: flex;
+            max-width: 850px;
+            width: 100%;
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            padding: 30px;
+            gap: 20px;
+        }
+
+        /* Left Section - Input Panel */
+        .input-panel {
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .input-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            text-align: center;
+        }
+
+        input {
+            padding: 14px;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            background: var(--input-bg);
+            text-align: center;
+            box-shadow: var(--shadow-inset);
+            outline: none;
+        }
+
+        input:focus {
+            box-shadow: inset 2px 2px 5px #b8b9be, inset -2px -2px 5px #ffffff;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            text-align: center;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .add-btn {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .add-btn:hover {
+            background: #003380;
+        }
+
+        .undo-btn {
+            background: #ecf0f3;
+            color: var(--text-dark);
+        }
+
+        .undo-btn:hover {
+            box-shadow: inset 2px 2px 5px #b8b9be, inset -2px -2px 5px #ffffff;
+        }
+
+        /* Right Section - Task Stack */
+        .stack-panel {
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .stack-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--text-dark);
+        }
+
+        .stack-container {
+            width: 100%;
+            background: var(--input-bg);
+            border-radius: var(--radius);
+            padding: 16px;
+            height: 320px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column-reverse;
+            box-shadow: var(--shadow-inset);
+        }
+
+        .task-item {
+            background: white;
+            padding: 14px;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 10px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            animation: slideIn 0.2s ease-out;
+        }
+
+        .empty-message {
+            color: var(--text-light);
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .stack-wrapper {
+                flex-direction: column;
+            }
+
+            .input-panel {
+                width: 100%;
+            }
+
+            .stack-panel {
+                width: 100%;
+            }
+
+            .stack-container {
+                height: 240px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stack-wrapper">
+        <!-- Input Section -->
+        <div class="input-panel">
+            <h2 class="title">Task Stack Manager</h2>
+            <div class="input-container">
+                <label for="taskInput">Enter Task:</label>
+                <input type="text" id="taskInput" placeholder="Type a task...">
+            </div>
+            <div class="button-group">
+                <button class="btn add-btn" onclick="addTask()">Add Task</button>
+                <button class="btn undo-btn" onclick="undoTask()">Undo</button>
+            </div>
+        </div>
+
+        <!-- Stack Section -->
+        <div class="stack-panel">
+            <h3 class="stack-title">Task Stack (LIFO)</h3>
+            <div class="stack-container" id="stackDisplay">
+                <div class="empty-message">No tasks added yet</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let taskStack = [];
+
+        function addTask() {
+            let taskInput = document.getElementById("taskInput");
+            let taskName = taskInput.value.trim();
+
+            if (taskName === "") {
+                alert("Please enter a task name");
+                return;
+            }
+
+            taskStack.push(taskName);
+            taskInput.value = "";
+            updateStackDisplay();
+            taskInput.focus();
+        }
+
+        function undoTask() {
+            if (taskStack.length === 0) {
+                alert("No tasks to undo");
+                return;
+            }
+
+            taskStack.pop();
+            updateStackDisplay();
+        }
+
+        function updateStackDisplay() {
+            let stackDisplay = document.getElementById("stackDisplay");
+            stackDisplay.innerHTML = "";
+
+            if (taskStack.length === 0) {
+                stackDisplay.innerHTML = '<div class="empty-message">No tasks added yet</div>';
+                return;
+            }
+
+            for (let i = taskStack.length - 1; i >= 0; i--) {
+                let taskElement = document.createElement("div");
+                taskElement.className = "task-item";
+                taskElement.innerText = taskStack[i];
+                stackDisplay.appendChild(taskElement);
+            }
+        }
+    </script>
+
+</body>
+</html>

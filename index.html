@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Viewer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>Dynamic<span>Gallery</span></h1>
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="#" class="nav-link active" data-page="landing">Home</a></li>
+                        <li><a href="#" class="nav-link" data-page="about">About</a></li>
+                        <li><a href="#" class="nav-link" data-page="contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="content-wrapper">
+                <div class="content-header">
+                    <h2 class="content-title">Project Tasks</h2>
+                    <p class="content-subtitle">Toggle between different tasks below</p>
+                </div>
+
+                <div class="task-toggles">
+                    <!-- Task toggle buttons will be added here dynamically -->
+                </div>
+
+                <div class="frame-container">
+                    <iframe id="contentFrame" title="Content"></iframe>
+                    <div class="loading">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
