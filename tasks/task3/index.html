@@ -2,151 +2,113 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Calculator</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Simple Calculator</title>
     <style>
-        /* General Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        /* Page Styling */
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: linear-gradient(135deg, #eef2f3, #d9e2ec);
+            font-family: sans-serif;
+            background-color: #ffffff;
+            padding: 20px;
         }
 
-        /* Calculator Box */
-        .calc-box {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-            width: 400px;
+        .calculator {
+            background-color: #f9f9f9;
+            width: 280px;
+            margin: 0 auto;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        h2 {
             text-align: center;
-        }
-
-        /* Title */
-        .calc-title {
-            font-size: 1.8rem;
-            font-weight: 700;
+            font-size: 20px;
             margin-bottom: 15px;
-            color: #333;
-        }
-
-        /* Input Section */
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 20px;
         }
 
         input {
-            padding: 12px;
-            border: 2px solid #ccc;
-            border-radius: 8px;
-            font-size: 1rem;
-            outline: none;
-            transition: border 0.3s;
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            font-size: 14px;
         }
 
-        input:focus {
-            border-color: #1e73b8;
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: space-between;
         }
 
-        /* Button Grid */
-        .button-group {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .btn {
-            padding: 14px;
-            border: none;
-            background: #1e73b8;
+        button {
+            flex: 1 1 45%;
+            padding: 8px;
+            font-size: 14px;
+            background-color: #007bff;
             color: white;
-            font-size: 1rem;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.3s ease-in-out;
+            border: none;
+            border-radius: 3px;
         }
 
-        .btn:hover {
-            background: #125a94;
+        button:hover {
+            background-color: #0056b3;
         }
 
-        /* Result Display */
-        .result-box {
-            padding: 12px;
-            border-radius: 8px;
-            background: #f0f0f0;
-            font-size: 1.2rem;
-            font-weight: bold;
+        #result {
+            margin-top: 15px;
             text-align: center;
-            color: #333;
+            font-weight: bold;
+            font-size: 16px;
         }
     </style>
 </head>
 <body>
 
-    <div class="calc-box">
-        <h2 class="calc-title">Smart Calculator</h2>
-        <div class="input-group">
-            <input type="number" id="num1" placeholder="Enter first number">
-            <input type="number" id="num2" placeholder="Enter second number">
-        </div>
-        <div class="button-group">
-            <button class="btn" onclick="compute('add')">Add (+)</button>
-            <button class="btn" onclick="compute('subtract')">Subtract (-)</button>
-            <button class="btn" onclick="compute('multiply')">Multiply (×)</button>
-            <button class="btn" onclick="compute('divide')">Divide (÷)</button>
-        </div>
-        <div id="output" class="result-box">Result will be displayed here</div>
+<div class="calculator">
+    <h2>Simple Calculator</h2>
+    <input type="number" id="num1" placeholder="First number">
+    <input type="number" id="num2" placeholder="Second number">
+
+    <div class="buttons">
+        <button onclick="calculate('add')">Add</button>
+        <button onclick="calculate('subtract')">Subtract</button>
+        <button onclick="calculate('multiply')">Multiply</button>
+        <button onclick="calculate('divide')">Divide</button>
     </div>
 
-    <script>
-        function compute(operation) {
-            const num1 = parseFloat(document.getElementById("num1").value);
-            const num2 = parseFloat(document.getElementById("num2").value);
+    <div id="result">Result will appear here</div>
+</div>
 
-            if (isNaN(num1) || isNaN(num2)) {
-                document.getElementById("output").textContent = "Please enter valid numbers!";
-                return;
-            }
+<script>
+    function calculate(operation) {
+        var num1 = parseFloat(document.getElementById("num1").value);
+        var num2 = parseFloat(document.getElementById("num2").value);
+        var result = document.getElementById("result");
 
-            let result;
-
-            switch (operation) {
-                case 'add':
-                    result = num1 + num2;
-                    break;
-                case 'subtract':
-                    result = num1 - num2;
-                    break;
-                case 'multiply':
-                    result = num1 * num2;
-                    break;
-                case 'divide':
-                    result = num2 !== 0 ? (num1 / num2).toFixed(2) : "Cannot divide by zero!";
-                    break;
-                default:
-                    result = "Invalid operation";
-            }
-
-            document.getElementById("output").textContent = `Result: ${result}`;
+        if (isNaN(num1) || isNaN(num2)) {
+            result.textContent = "Please enter valid numbers.";
+            return;
         }
-    </script>
+
+        var output;
+
+        if (operation === 'add') {
+            output = num1 + num2;
+        } else if (operation === 'subtract') {
+            output = num1 - num2;
+        } else if (operation === 'multiply') {
+            output = num1 * num2;
+        } else if (operation === 'divide') {
+            if (num2 === 0) {
+                output = "Cannot divide by zero!";
+            } else {
+                output = num1 / num2;
+            }
+        }
+
+        result.textContent = "Result: " + output;
+    }
+</script>
 
 </body>
 </html>
