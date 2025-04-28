@@ -1,76 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Number Generator</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 50px;
-        }
-
-        h1 {
-            font-size: 24px;
-        }
-
-        .container {
-            max-width: 300px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #000;
-        }
-
-        input {
-            width: 100%;
-            padding: 8px;
-            margin: 5px 0;
-            border: 1px solid #000;
-        }
-
-        button {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-            background: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        .result {
-            font-size: 20px;
-            font-weight: bold;
-            margin-top: 15px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Random Number</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 20px;
+      background: #f0f0f0;
+    }
+    .box {
+      max-width: 250px;
+      margin: auto;
+      background: #fff;
+      padding: 15px;
+      border: 1px solid #ccc;
+    }
+    input, button {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+    .result {
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
 
-    <h1>Random Number Generator</h1>
-    <div class="container">
-        <input type="number" id="minValue" placeholder="Enter Min">
-        <input type="number" id="maxValue" placeholder="Enter Max">
-        <button onclick="generateRandom()">Generate</button>
-        <div id="result" class="result">?</div>
-    </div>
+<h2>Random Number</h2>
 
-    <script>
-        function generateRandom() {
-            let min = parseInt(document.getElementById("minValue").value);
-            let max = parseInt(document.getElementById("maxValue").value);
-            let result = document.getElementById("result");
+<div class="box">
+  <input type="number" id="min" placeholder="Min">
+  <input type="number" id="max" placeholder="Max">
+  <button onclick="generate()">Generate</button>
+  <div class="result" id="out">Result: ?</div>
+</div>
 
-            if (isNaN(min) || isNaN(max) || min >= max) {
-                result.textContent = "Invalid Input!";
-                return;
-            }
+<script>
+  function generate() {
+    let min = +document.getElementById("min").value;
+    let max = +document.getElementById("max").value;
+    let out = document.getElementById("out");
 
-            let randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
-            result.textContent = randomNum;
-        }
-    </script>
+    if (min >= max || isNaN(min) || isNaN(max)) {
+      out.textContent = "Result: Invalid!";
+    } else {
+      let num = Math.floor(Math.random() * (max - min + 1)) + min;
+      out.textContent = "Result: " + num;
+    }
+  }
+</script>
 
 </body>
 </html>
