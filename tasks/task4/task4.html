@@ -1,104 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Uppercase Converter</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
-    <style>
-        /* Global Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Roboto', sans-serif;
-        }
-
-        /* Page Layout */
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
-            padding: 20px;
-        }
-
-        /* Main Container */
-        .converter-box {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            width: 400px;
-            text-align: center;
-        }
-
-        /* Heading */
-        .title {
-            font-size: 1.6rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: #222;
-        }
-
-        /* Input Area */
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        label {
-            font-size: 1rem;
-            font-weight: 500;
-            color: #444;
-        }
-
-        input {
-            padding: 12px;
-            border: 2px solid #ccc;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border 0.3s ease-in-out;
-            outline: none;
-            text-transform: uppercase;
-        }
-
-        input:focus {
-            border-color: #0288d1;
-        }
-
-        /* Output Field */
-        .output-box {
-            padding: 12px;
-            border-radius: 8px;
-            background: #f0f0f0;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #222;
-            text-align: center;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Text Transformer</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f9f9f9;
+      padding: 20px;
+    }
+    .box {
+      max-width: 300px;
+      margin: auto;
+      background: #fff;
+      padding: 15px;
+      border: 1px solid #ccc;
+    }
+    textarea, select {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 8px;
+      font-size: 14px;
+    }
+    .result {
+      background: #eee;
+      padding: 10px;
+      min-height: 30px;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
 
-    <div class="converter-box">
-        <h2 class="title">Uppercase Converter</h2>
-        <div class="input-group">
-            <label for="text-input">Enter Text:</label>
-            <input type="text" id="text-input" placeholder="Type here..." oninput="convertToUpper()">
-        </div>
-        <div class="output-box" id="output-text">Your uppercase text will appear here</div>
-    </div>
+<div class="box">
+  <h3>Text Transformer</h3>
+  <textarea id="text" placeholder="Type something..." oninput="transform()"></textarea>
+  <select id="type" name="Task" title="Choose text format" onchange="transform()">
+    <option value="upper">UPPERCASE</option>
+    <option value="lower">lowercase</option>
+  </select>
+  <div class="result" id="output">Result appears here</div>
+</div>
 
-    <script>
-        function convertToUpper() {
-            let inputText = document.getElementById("text-input").value.toUpperCase();
-            document.getElementById("output-text").textContent = inputText || "Your uppercase text will appear here";
-        }
-    </script>
+<script>
+  function transform() {
+    let text = document.getElementById("text").value;
+    let type = document.getElementById("type").value;
+    let result = (type === "upper") ? text.toUpperCase() : text.toLowerCase();
+    document.getElementById("output").textContent = text.trim() ? result : "Result appears here";
+  }
+</script>
 
 </body>
 </html>
