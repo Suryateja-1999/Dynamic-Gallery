@@ -2,14 +2,14 @@ const tasks = {
     "task1": { "title": "Task 1", "url": "tasks/task1/index.html" },
     "task2": { "title": "Task 2", "url": "tasks/task2/index.html" },
     "task3": { "title": "Task 3", "url": "tasks/task3/index.html" },
-    "task4": { "title": "Task 4", "url": "tasks/task4/task4.html" },
-    "task5": { "title": "Task 5", "url": "tasks/task5/task5.html" },
-    "task6": { "title": "Task 6", "url": "tasks/task6/task6.html" },
-    "task7": { "title": "Task 7", "url": "tasks/task7/task7.html" },
-    "task8": { "title": "Task 8", "url": "tasks/task8/task8.html" },
+    "task4": { "title": "Task 4", "url": "tasks/task4/index.html" },
+    "task5": { "title": "Task 5", "url": "tasks/task5/index.html" },
+    "task6": { "title": "Task 6", "url": "tasks/task6/index.html" },
+    "task7": { "title": "Task 7", "url": "tasks/task7/index.html" },
+    "task8": { "title": "Task 8", "url": "tasks/task8/index.html" },
     "task9": { "title": "Task 9", "url": "tasks/task9/index.html" },
     "task10": { "title": "Task 10", "url": "tasks/task10/index.html" },
-    "task11": { "title": "Task 11", "url": "tasks/task11/task11.html" },
+    "task11": { "title": "Task 11", "url": "tasks/task11/index.html" },
 };
 
 // Function to dynamically create links for projects
