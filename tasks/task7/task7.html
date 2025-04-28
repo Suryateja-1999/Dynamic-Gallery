@@ -1,159 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Star Pattern Creator</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700&display=swap">
-    <style>
-        /* Root Styling */
-        :root {
-            --background: linear-gradient(135deg, #ddeafc, #b2d4ff);
-            --card-bg: rgba(255, 255, 255, 0.3);
-            --primary: #004aad;
-            --text-dark: #222;
-            --text-light: #555;
-            --border: rgba(255, 255, 255, 0.2);
-            --shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            --radius: 14px;
-            --transition: all 0.3s ease-in-out;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Nunito', sans-serif;
-        }
-
-        /* Background Animation */
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: var(--background);
-            padding: 40px;
-            animation: gradientAnimation 6s infinite alternate;
-        }
-
-        @keyframes gradientAnimation {
-            0% { background: linear-gradient(135deg, #ddeafc, #b2d4ff); }
-            100% { background: linear-gradient(135deg, #b2d4ff, #ddeafc); }
-        }
-
-        /* Main Card */
-        .pattern-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            padding: 30px;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            width: 400px;
-            text-align: center;
-            border: 1px solid var(--border);
-        }
-
-        .title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            margin-bottom: 15px;
-        }
-
-        .input-container {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        label {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--text-dark);
-        }
-
-        input {
-            padding: 14px;
-            border: none;
-            border-radius: var(--radius);
-            font-size: 1rem;
-            background: rgba(255, 255, 255, 0.5);
-            text-align: center;
-            outline: none;
-            transition: var(--transition);
-        }
-
-        input:focus {
-            border: 2px solid var(--primary);
-            background: rgba(255, 255, 255, 0.7);
-        }
-
-        .generate-btn {
-            padding: 12px;
-            background: var(--primary);
-            color: white;
-            font-size: 1rem;
-            font-weight: bold;
-            border: none;
-            border-radius: var(--radius);
-            cursor: pointer;
-            transition: var(--transition);
-            width: 100%;
-            margin-top: 10px;
-        }
-
-        .generate-btn:hover {
-            background: #003380;
-        }
-
-        /* Output Area */
-        .output-box {
-            padding: 12px;
-            border-radius: var(--radius);
-            background: rgba(255, 255, 255, 0.3);
-            font-size: 1rem;
-            font-weight: bold;
-            color: var(--text-dark);
-            text-align: left;
-            white-space: pre-wrap;
-            min-height: 120px;
-            max-height: 200px;
-            overflow-y: auto;
-            border: 1px solid var(--border);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pyramid Star Pattern</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f9f9f9;
+      padding: 20px;
+    }
+    .box {
+      max-width: 300px;
+      margin: auto;
+      background: #fff;
+      padding: 15px;
+      border: 1px solid #ccc;
+    }
+    h3 {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    input, button {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 8px;
+      font-size: 14px;
+    }
+    .output {
+      background: #eee;
+      padding: 10px;
+      white-space: pre;
+      font-family: monospace;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
 
-    <div class="pattern-card">
-        <h2 class="title">Star Pattern Creator</h2>
-        <div class="input-container">
-            <label for="starInput">Enter Rows:</label>
-            <input type="number" id="starInput" placeholder="Type a number..." min="1" max="20">
-        </div>
-        <button class="generate-btn" onclick="generateStars()">Generate</button>
-        <div id="output" class="output-box">Pattern will appear here</div>
-    </div>
+<div class="box">
+  <h3>Pyramid Pattern</h3>
+  <input type="number" id="rows" placeholder="Enter rows (1-20)" min="1" max="20">
+  <button onclick="draw()">Draw Pyramid</button>
+  <div class="output" id="out">Pattern appears here</div>
+</div>
 
-    <script>
-        function generateStars() {
-            let rows = parseInt(document.getElementById("starInput").value);
-            let output = "";
+<script>
+function draw() {
+  let rows = +document.getElementById("rows").value;
+  let out = "";
 
-            if (isNaN(rows) || rows < 1 || rows > 20) {
-                document.getElementById("output").innerHTML = "Enter a valid number (1-20)";
-                return;
-            }
+  if (rows < 1 || rows > 20) {
+    out = "Enter 1 to 20 only";
+  } else {
+    for (let i = 1; i <= rows; i++) {
+      out += " ".repeat(rows - i) + "* ".repeat(i) + "\n";
+    }
+  }
 
-            for (let i = 0; i < rows; i++) {
-                output += "* ".repeat(i + 1) + "\n";
-            }
-
-            document.getElementById("output").innerHTML = output;
-        }
-    </script>
+  document.getElementById("out").textContent = out;
+}
+</script>
 
 </body>
 </html>
